@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="ProjetoPOO/Lib/samples/adaptive"/>
+	<classpathentry kind="src" path="ProjetoPOO/Lib/samples/alwaysencrypted"/>
+	<classpathentry kind="src" path="ProjetoPOO/Lib/samples/azureactivedirectoryauthentication"/>
+	<classpathentry kind="src" path="ProjetoPOO/Lib/samples/connections"/>
+	<classpathentry kind="src" path="ProjetoPOO/Lib/samples/constrained"/>
+	<classpathentry kind="src" path="ProjetoPOO/Lib/samples/dataclassification"/>
+	<classpathentry kind="src" path="ProjetoPOO/Lib/samples/datatypes"/>
+	<classpathentry kind="src" path="ProjetoPOO/Lib/samples/resultsets"/>
+	<classpathentry kind="src" path="ProjetoPOO/Lib/samples/sparse"/>
+	<classpathentry kind="src" path="ProjetoPOO/src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
