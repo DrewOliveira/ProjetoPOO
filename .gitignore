@@ -1,5 +1,6 @@
 /.metadata/
-BD/
+*.mdf
+*.ldf
 
 
 # Log file
