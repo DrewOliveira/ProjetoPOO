@@ -2,26 +2,19 @@ package view;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import javax.swing.Box;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.SwingConstants;
+import javax.swing.JOptionPane;
 
-import java.awt.List;
 import java.awt.TextField;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Checkbox;
 import java.awt.Panel;
 import java.awt.Label;
-import java.awt.Button;
-import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -60,111 +53,169 @@ public class Reserva {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 937, 591);
+		frame.setBounds(100, 100, 1147, 694);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setName("btnCadastrar");
 		panel.setBackground(SystemColor.activeCaption);
-		panel.setBounds(20, 20, 901, 530);
+		panel.setBounds(20, 21, 1084, 624);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		TextField textField = new TextField();
-		textField.setName("textfieldQuarto");
-		textField.setBackground(SystemColor.info);
-		textField.setText("Quarto");
-		textField.setFont(new Font("Arial", Font.BOLD, 16));
-		textField.setBounds(56, 146, 285, 42);
-		panel.add(textField);
+		TextField textfieldQuarto = new TextField();
+		textfieldQuarto.setName("textfieldQuarto");
+		textfieldQuarto.setBackground(SystemColor.info);
+		textfieldQuarto.setFont(new Font("Arial", Font.BOLD, 16));
+		textfieldQuarto.setBounds(233, 221, 285, 42);
+		panel.add(textfieldQuarto);
 		
-		TextField textField_1 = new TextField();
-		textField_1.setText("Cliente");
-		textField_1.setName("textfieldQuarto");
-		textField_1.setFont(new Font("Arial", Font.BOLD, 16));
-		textField_1.setBackground(SystemColor.info);
-		textField_1.setBounds(56, 214, 285, 42);
-		panel.add(textField_1);
+		TextField textfieldCliente = new TextField();
+		textfieldCliente.setName("textfieldCliente");
+		textfieldCliente.setFont(new Font("Arial", Font.BOLD, 16));
+		textfieldCliente.setBackground(SystemColor.info);
+		textfieldCliente.setBounds(233, 289, 285, 42);
+		panel.add(textfieldCliente);
 		
-		TextField textField_2 = new TextField();
-		textField_2.setText("Quantidade de diarias");
-		textField_2.setName("textfieldQuarto");
-		textField_2.setFont(new Font("Arial", Font.BOLD, 16));
-		textField_2.setBackground(SystemColor.info);
-		textField_2.setBounds(56, 291, 285, 42);
-		panel.add(textField_2);
+		TextField textfieldQuantidade = new TextField();
+		textfieldQuantidade.setName("textfieldQuantidade");
+		textfieldQuantidade.setFont(new Font("Arial", Font.BOLD, 16));
+		textfieldQuantidade.setBackground(SystemColor.info);
+		textfieldQuantidade.setBounds(233, 366, 285, 42);
+		panel.add(textfieldQuantidade);
 		
 		Panel panel_1_1 = new Panel();
 		panel_1_1.setLayout(null);
-		panel_1_1.setBounds(360, 146, 465, 187);
+		panel_1_1.setBounds(537, 221, 465, 187);
 		panel.add(panel_1_1);
 		
-		Checkbox checkbox = new Checkbox("Servi\u00E7o de quarto");
-		checkbox.setBounds(264, 29, 260, 34);
-		panel_1_1.add(checkbox);
-		checkbox.setFont(new Font("Arial", Font.BOLD, 14));
+		Checkbox checkboxServicoQuarto = new Checkbox("Servi\u00E7o de quarto");
+		checkboxServicoQuarto.setName("checkboxServicoQuarto");
+		checkboxServicoQuarto.setBounds(264, 29, 260, 34);
+		panel_1_1.add(checkboxServicoQuarto);
+		checkboxServicoQuarto.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		Checkbox checkbox_3 = new Checkbox("Acesso a Piscina");
-		checkbox_3.setBounds(264, 81, 260, 34);
-		panel_1_1.add(checkbox_3);
-		checkbox_3.setFont(new Font("Arial", Font.BOLD, 14));
+		Checkbox checkboxAcessoPiscina = new Checkbox("Acesso a Piscina");
+		checkboxAcessoPiscina.setName("checkboxAcessoPiscina");
+		checkboxAcessoPiscina.setBounds(264, 81, 260, 34);
+		panel_1_1.add(checkboxAcessoPiscina);
+		checkboxAcessoPiscina.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		Checkbox checkbox_4 = new Checkbox("Caf\u00E9 da manh\u00E3");
-		checkbox_4.setBounds(32, 29, 226, 33);
-		panel_1_1.add(checkbox_4);
-		checkbox_4.setFont(new Font("Arial", Font.BOLD, 14));
+		Checkbox checkboxRefeicaoManha = new Checkbox("Caf\u00E9 da manh\u00E3");
+		checkboxRefeicaoManha.setName("checkboxRefeicaoManha");
+		checkboxRefeicaoManha.setBounds(32, 29, 226, 33);
+		panel_1_1.add(checkboxRefeicaoManha);
+		checkboxRefeicaoManha.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		Checkbox checkbox_1 = new Checkbox("Almo\u00E7o");
-		checkbox_1.setBounds(32, 68, 126, 33);
-		panel_1_1.add(checkbox_1);
-		checkbox_1.setFont(new Font("Arial", Font.BOLD, 14));
+		Checkbox checkboxRefeicaoTarde = new Checkbox("Almo\u00E7o");
+		checkboxRefeicaoTarde.setName("checkboxRefeicaoTarde");
+		checkboxRefeicaoTarde.setBounds(32, 68, 126, 33);
+		panel_1_1.add(checkboxRefeicaoTarde);
+		checkboxRefeicaoTarde.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		Checkbox checkbox_2 = new Checkbox("Jantar");
-		checkbox_2.setBounds(32, 113, 107, 33);
-		panel_1_1.add(checkbox_2);
-		checkbox_2.setFont(new Font("Arial", Font.BOLD, 14));
+		Checkbox checkboxRefeicaoNoite = new Checkbox("Jantar");
+		checkboxRefeicaoNoite.setName("checkboxRefeicaoNoite");
+		checkboxRefeicaoNoite.setBounds(32, 113, 107, 33);
+		panel_1_1.add(checkboxRefeicaoNoite);
+		checkboxRefeicaoNoite.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		JButton btnNewButton = new JButton("Cadastrar");
-		btnNewButton.setFont(new Font("Arial", Font.BOLD, 18));
-		btnNewButton.setBounds(687, 425, 138, 42);
-		panel.add(btnNewButton);
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//log salvar
+				JOptionPane.showMessageDialog(null, "Salvar");
+			}
+		});
+		btnSalvar.setName("btnSalvar");
+		btnSalvar.setFont(new Font("Arial", Font.BOLD, 18));
+		btnSalvar.setBounds(864, 500, 138, 42);
+		panel.add(btnSalvar);
 		
 		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.setName("btnLimpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnLimpar.setFont(new Font("Arial", Font.BOLD, 18));
-		btnLimpar.setBounds(511, 425, 138, 42);
+		btnLimpar.setBounds(688, 500, 138, 42);
 		panel.add(btnLimpar);
 		
 		JMenu mnNewMenu = new JMenu("Consultar");
+		mnNewMenu.setName("mnuConsultar");
 		mnNewMenu.setFont(new Font("Arial", Font.ITALIC, 14));
 		mnNewMenu.setBounds(10, 0, 111, 24);
 		panel.add(mnNewMenu);
 		mnNewMenu.setBackground(SystemColor.menu);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Quarto");
-		mntmNewMenuItem_1.setFont(new Font("Arial", Font.ITALIC, 13));
-		mnNewMenu.add(mntmNewMenuItem_1);
+		JMenuItem mnuItemQuarto = new JMenuItem("Quarto");
+		mnuItemQuarto.setName("mnuItemQuarto");
+		mnuItemQuarto.setFont(new Font("Arial", Font.ITALIC, 13));
+		mnNewMenu.add(mnuItemQuarto);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Cliente");
-		mntmNewMenuItem.setFont(new Font("Arial", Font.ITALIC, 13));
-		mnNewMenu.add(mntmNewMenuItem);
+		JMenuItem mnuItemCliente = new JMenuItem("Cliente");
+		mnuItemCliente.setName("mnuItemCliente");
+		mnuItemCliente.setFont(new Font("Arial", Font.ITALIC, 13));
+		mnNewMenu.add(mnuItemCliente);
 		
-		Label label = new Label("Realizar reserva");
-		label.setAlignment(Label.CENTER);
-		label.setFont(new Font("Arial", Font.BOLD, 22));
-		label.setBounds(107, 44, 465, 42);
-		panel.add(label);
+		Label labelTitulo = new Label("Realizar reserva");
+		labelTitulo.setName("labelTitulo");
+		labelTitulo.setAlignment(Label.CENTER);
+		labelTitulo.setFont(new Font("Arial", Font.BOLD, 22));
+		labelTitulo.setBounds(217, 21, 465, 42);
+		panel.add(labelTitulo);
 		
-		TextField textField_3 = new TextField();
-		textField_3.setEnabled(false);
-		textField_3.setEditable(false);
-		textField_3.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-		textField_3.setFont(new Font("Arial", Font.ITALIC, 18));
-		textField_3.setText("Valor");
-		textField_3.setBounds(56, 425, 285, 42);
-		panel.add(textField_3);
+		TextField textfieldValor = new TextField();
+		textfieldValor.setName("textfieldValor");
+		textfieldValor.setEnabled(false);
+		textfieldValor.setEditable(false);
+		textfieldValor.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+		textfieldValor.setFont(new Font("Arial", Font.ITALIC, 18));
+		textfieldValor.setText("Valor");
+		textfieldValor.setBounds(101, 500, 417, 42);
+		panel.add(textfieldValor);
+		
+		TextField textfieldBusca = new TextField();
+		textfieldBusca.setName("textfieldBusca");
+		textfieldBusca.setFont(new Font("Arial", Font.BOLD, 16));
+		textfieldBusca.setBackground(SystemColor.info);
+		textfieldBusca.setBounds(233, 128, 607, 42);
+		panel.add(textfieldBusca);
+		
+		JButton btnConsultar = new JButton("Consultar");
+		btnConsultar.setName("btnConsultar");
+		btnConsultar.setFont(new Font("Arial", Font.BOLD, 18));
+		btnConsultar.setBounds(864, 128, 138, 42);
+		panel.add(btnConsultar);
+		
+		Label labelBuscar = new Label("Buscar");
+		labelBuscar.setName("labelBuscar");
+		labelBuscar.setFont(new Font("Arial", Font.BOLD, 22));
+		labelBuscar.setAlignment(Label.CENTER);
+		labelBuscar.setBounds(10, 128, 215, 42);
+		panel.add(labelBuscar);
+		
+		Label labelQuarto = new Label("Quarto");
+		labelQuarto.setName("labelQuarto");
+		labelQuarto.setFont(new Font("Arial", Font.BOLD, 22));
+		labelQuarto.setAlignment(Label.CENTER);
+		labelQuarto.setBounds(12, 221, 215, 42);
+		panel.add(labelQuarto);
+		
+		Label labelCliente = new Label("Cliente");
+		labelCliente.setName("labelCliente");
+		labelCliente.setFont(new Font("Arial", Font.BOLD, 22));
+		labelCliente.setAlignment(Label.CENTER);
+		labelCliente.setBounds(12, 289, 215, 42);
+		panel.add(labelCliente);
+		
+		Label labelDiaria = new Label("Di\u00E1rias");
+		labelDiaria.setName("labelDiaria");
+		labelDiaria.setFont(new Font("Arial", Font.BOLD, 22));
+		labelDiaria.setAlignment(Label.CENTER);
+		labelDiaria.setBounds(12, 366, 215, 42);
+		panel.add(labelDiaria);
 	}
 }

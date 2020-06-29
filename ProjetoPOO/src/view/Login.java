@@ -67,7 +67,7 @@ public class Login {
 		frame.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		frame.setResizable(false);
 		frame.setType(Type.POPUP);
-		frame.setBounds(100, 100, 578, 605);
+		frame.setBounds(100, 100, 578, 583);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -117,22 +117,5 @@ public class Login {
 		});
 		btnLimparLogin.setBounds(199, 332, 104, 37);
 		panel.add(btnLimparLogin);
-	}
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
 	}
 }
