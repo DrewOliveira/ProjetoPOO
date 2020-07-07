@@ -13,14 +13,14 @@ import javax.swing.JFrame;
 public class Home extends JFrame implements ActionListener {
 
 	Label lblTitulo;
-	Button btnCadCliente,btnCadQuartos,btnConsultClientes,btnConsultQuartos;
+	Button btnCadCliente,btnCadQuartos,btnConsultClientes,btnConsultQuartos, btnTelaReservas;
 	MenuBar menuBar;
 	Menu menu;
 	public Home() {
 		setTitle("Navegação");
 		setSize(100, 300);
 		setLocation(50,50);
-		setLayout(new GridLayout(5,1));
+		setLayout(new GridLayout(6,1));
 		
 		menuBar = new MenuBar();
 		menu = new Menu("Home");
@@ -43,12 +43,18 @@ public class Home extends JFrame implements ActionListener {
 		btnConsultQuartos = new Button("Consulta de Quartos");
 		btnConsultQuartos.addActionListener(this);
 		
+		btnConsultQuartos = new Button("Consulta de Quartos");
+		btnConsultQuartos.addActionListener(this);
+		
+		btnTelaReservas = new Button("Tela de Reservas");
+		btnTelaReservas.addActionListener(this);
 		
 		add(lblTitulo);
 		add(btnCadCliente);
 		add(btnCadQuartos);
 		add(btnConsultClientes);
 		add(btnConsultQuartos);
+		add(btnTelaReservas);
 
 		
 	}
@@ -86,6 +92,13 @@ public class Home extends JFrame implements ActionListener {
 			consultaQuartos.setVisible(true);
 			this.dispose();
 		}
+		 
+		 if(e.getSource().equals(btnTelaReservas)) {
+				Reserva reservaTela = new Reserva();
+				reservaTela.getFrame().setVisible(true);
+				this.dispose();
+			 }
+		 
 		}catch (Exception ex) {
 			lblTitulo.setText("ERRO "+ex.getMessage());
 		}
