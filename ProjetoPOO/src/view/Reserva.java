@@ -24,12 +24,17 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 
 import control.ReservaControl;
+import jdk.nashorn.internal.scripts.JO;
+
 import javax.swing.JCheckBox;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.awt.ComponentOrientation;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JMenuBar;
 public class Reserva {
 
 	private JFrame frame;
@@ -47,7 +52,7 @@ public class Reserva {
 	private double custoAcessoPiscina;
 	private double custoServicoQuarto;
 	
-	private double Total;
+	private Double Total;
 	private JTextField textBusca;
 	private JTextField textTotal;
 	private JTextField textQuantidade;
@@ -55,14 +60,17 @@ public class Reserva {
 	private JTextField textCliente;
 	
 	
-	
+	private int idBusca;
+	private int idDelete;
+	private int idAlterar;
+	private JTextField textReserva;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Reserva window = new Reserva();
-					window.frame.setVisible(true);
+					window.getFrame().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -82,22 +90,22 @@ public class Reserva {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 1147, 694);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		setFrame(new JFrame());
+		getFrame().setResizable(false);
+		getFrame().setBounds(100, 100, 1133, 668);
+		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrame().getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setName("btnCadastrar");
 		panel.setBackground(SystemColor.activeCaption);
-		panel.setBounds(20, 21, 1084, 624);
-		frame.getContentPane().add(panel);
+		panel.setBounds(10, 10, 1108, 615);
+		getFrame().getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		Panel panel_1_1 = new Panel();
 		panel_1_1.setLayout(null);
-		panel_1_1.setBounds(537, 221, 465, 187);
+		panel_1_1.setBounds(537, 283, 465, 187);
 		panel.add(panel_1_1);
 		
 		JCheckBox checkboxManha = new JCheckBox("Caf\u00E9 da manh\u00E3");
@@ -130,118 +138,27 @@ public class Reserva {
 		checkboxServicoQuarto.setBounds(242, 82, 147, 21);
 		panel_1_1.add(checkboxServicoQuarto);
 		
-		
-		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Quarto_id =  Integer.parseInt(textQuarto.getText());
-				Cliente_id =  Integer.parseInt(textCliente.getText());
-				Quantidade =  Integer.parseInt(textQuantidade.getText());
-				
-				Total = 70.0;
-				
-				if(checkboxManha.isSelected()) {
-					refeicaoManha = true;
-					custoRefeicaoManha =  (Total/100) * 10 ;
-				} else {
-					refeicaoManha = false;
-					custoRefeicaoManha = 0;
-				}
-				
-				if(checkboxTarde.isSelected()) {
-					refeicaoTarde = true;
-					custoRefeicaoTarde =  (Total/100) * 15 ;
-				} else {
-					refeicaoTarde = false;
-					custoRefeicaoTarde = 0;
-				}
-				
-				if(checkboxNoite.isSelected()) {
-					refeicaoNoite = true;
-					custoRefeicaoNoite =  (Total/100) * 25 ;
-					
-				} else {
-					refeicaoNoite = false;
-					custoRefeicaoNoite = 0;
-				}
-				
-				if(checkboxAcessoPiscina.isSelected()) {
-					acessoPiscina = true;
-					custoAcessoPiscina =  (Total/100) * 50 ;
-				} else {
-					acessoPiscina = false;
-					custoAcessoPiscina = 0;
-				}
-				
-				if(checkboxServicoQuarto.isSelected()) {
-					servicoQuarto = true;
-					custoServicoQuarto =  Total + (Total/100) * 50 ;
-					
-				} else {
-					servicoQuarto = false;
-					custoServicoQuarto = 0;
-				}
-				
-				Total = Total + (custoRefeicaoManha + custoRefeicaoTarde + custoRefeicaoNoite + custoServicoQuarto + custoAcessoPiscina);
-				
-				ReservaControl reservaController = new ReservaControl();
-				reservaController.cadastrarReserva(
-						Quarto_id,
-						Cliente_id,
-						Quantidade,
-						Total,
-						refeicaoManha,
-						refeicaoTarde,
-						refeicaoNoite,
-						servicoQuarto,
-						acessoPiscina
-				);
-
-				JOptionPane.showMessageDialog(null, "Reserva Registrada "
-						+ "\n INFORMAÇÕES - RESERVA REALIZADA"
-						+ "\n Quarto :"
-						+ "\\n Cliente :"
-						+ "\n Quantidade de Diárias :"
-						+ "\n----------- CUSTO POR SERVIÇOS -----------"
-						+ "\n Custo de refeição Manhã :" + custoRefeicaoManha
-						+ "\n Custo de refeição Tarde :" + custoRefeicaoTarde
-						+ "\n Custo de refeição Noite :" + custoRefeicaoNoite
-						+ "\n Custo de serviço de Quarto :" + custoServicoQuarto
-						+ "\n Custo de acesso à Piscina :" + custoAcessoPiscina
-						+ "\n CUSTO TOTAL -------- :" + Total);
-			}
-		});
-		btnSalvar.setName("btnSalvar");
-		btnSalvar.setFont(new Font("Arial", Font.BOLD, 18));
-		btnSalvar.setBounds(864, 503, 138, 42);
-		panel.add(btnSalvar);
-		
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.setName("btnLimpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textReserva.setText("");
+				textBusca.setText("");
+				textQuarto.setText("");
+				textCliente.setText("");
+				textQuantidade.setText("");
+				textTotal.setText("0");
+				checkboxManha.setSelected(false);
+				checkboxTarde.setSelected(false);
+				checkboxNoite.setSelected(false);
+				checkboxServicoQuarto.setSelected(false);
+				checkboxAcessoPiscina.setSelected(false);
+				textCliente.setEnabled(true);
 			}
 		});
 		btnLimpar.setFont(new Font("Arial", Font.BOLD, 18));
 		btnLimpar.setBounds(716, 503, 138, 42);
 		panel.add(btnLimpar);
-		
-		JMenu mnNewMenu = new JMenu("Consultar");
-		mnNewMenu.setName("mnuConsultar");
-		mnNewMenu.setFont(new Font("Arial", Font.ITALIC, 14));
-		mnNewMenu.setBounds(10, 0, 111, 24);
-		panel.add(mnNewMenu);
-		mnNewMenu.setBackground(SystemColor.menu);
-		
-		JMenuItem mnuItemQuarto = new JMenuItem("Quarto");
-		mnuItemQuarto.setName("mnuItemQuarto");
-		mnuItemQuarto.setFont(new Font("Arial", Font.ITALIC, 13));
-		mnNewMenu.add(mnuItemQuarto);
-		
-		JMenuItem mnuItemCliente = new JMenuItem("Cliente");
-		mnuItemCliente.setName("mnuItemCliente");
-		mnuItemCliente.setFont(new Font("Arial", Font.ITALIC, 13));
-		mnNewMenu.add(mnuItemCliente);
 		
 		Label labelTitulo = new Label("Realizar reserva");
 		labelTitulo.setName("labelTitulo");
@@ -250,44 +167,97 @@ public class Reserva {
 		labelTitulo.setBounds(217, 21, 465, 42);
 		panel.add(labelTitulo);
 		
+		JButton btnDelete = new JButton("Excluir");
+		btnDelete.setEnabled(false);
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (textReserva.getText().equalsIgnoreCase(null) || textReserva.getText().equals("") || textReserva.getText().equals("0") || Integer.parseInt(textReserva.getText()) <= 0) {
+					JOptionPane.showMessageDialog(null, "Necessario consultar uma reserva valida para excluir!!!");
+				} else {
+					idDelete = Integer.parseInt(textReserva.getText().trim());
+					ReservaControl reservaController =  new ReservaControl();
+					
+					reservaController.excluirReserva(idDelete);
+					btnLimpar.doClick();
+					textCliente.setEnabled(true);
+				}				
+			}
+		});
+		btnDelete.setName("btnLimpar");
+		btnDelete.setFont(new Font("Arial", Font.BOLD, 18));
+		btnDelete.setBounds(563, 503, 138, 42);
+		panel.add(btnDelete);
+		
 		JButton btnConsultar = new JButton("Consultar");
+		btnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (textBusca.getText().equalsIgnoreCase(null) || textBusca.getText().equals("") || textBusca.getText().equals("0") || Integer.parseInt(textBusca.getText()) <= 0) {
+					JOptionPane.showMessageDialog(null, "Favor um id valido no campo de busca!!!");
+				} else {
+					idBusca = Integer.parseInt(textBusca.getText());
+										
+					ReservaControl reservaController = new ReservaControl();
+					if (reservaController.consultarReserva(idBusca) == null) {
+						JOptionPane.showMessageDialog(null, "Nenhuma reserva encontrada");
+						btnLimpar.doClick();
+					} else {
+						textBusca.setText("");
+						textReserva.setText(String.valueOf(idBusca));
+						textQuarto.setText(String.valueOf(reservaController.consultarReserva(idBusca).getQuarto_id()));
+						textCliente.setText(String.valueOf(reservaController.consultarReserva(idBusca).getCliente_id()));
+						textQuantidade.setText(String.valueOf(reservaController.consultarReserva(idBusca).getDiaria()));
+						textTotal.setText(String.valueOf(reservaController.consultarReserva(idBusca).getCusto()));
+
+						checkboxManha.setSelected(reservaController.consultarReserva(idBusca).isRefeicaoManha());
+						checkboxTarde.setSelected(reservaController.consultarReserva(idBusca).isRefeicaoTarde());
+						checkboxNoite.setSelected(reservaController.consultarReserva(idBusca).isRefeicaoNoite());
+						checkboxServicoQuarto.setSelected(reservaController.consultarReserva(idBusca).isServicoQuarto());
+						checkboxAcessoPiscina.setSelected(reservaController.consultarReserva(idBusca).isAcessoPiscina());
+
+						btnDelete.setEnabled(true);
+						textCliente.setEnabled(false);
+					}
+				}
+			}
+		});
 		btnConsultar.setName("btnConsultar");
 		btnConsultar.setFont(new Font("Arial", Font.BOLD, 18));
-		btnConsultar.setBounds(864, 128, 138, 42);
+		btnConsultar.setBounds(864, 87, 138, 42);
 		panel.add(btnConsultar);
 		
 		Label labelBuscar = new Label("Buscar");
 		labelBuscar.setName("labelBuscar");
 		labelBuscar.setFont(new Font("Arial", Font.BOLD, 22));
 		labelBuscar.setAlignment(Label.CENTER);
-		labelBuscar.setBounds(10, 128, 215, 42);
+		labelBuscar.setBounds(10, 87, 215, 42);
 		panel.add(labelBuscar);
 		
 		Label labelQuarto = new Label("Quarto");
 		labelQuarto.setName("labelQuarto");
 		labelQuarto.setFont(new Font("Arial", Font.BOLD, 22));
 		labelQuarto.setAlignment(Label.CENTER);
-		labelQuarto.setBounds(10, 221, 215, 42);
+		labelQuarto.setBounds(10, 283, 215, 42);
 		panel.add(labelQuarto);
 		
 		Label labelCliente = new Label("Cliente");
 		labelCliente.setName("labelCliente");
 		labelCliente.setFont(new Font("Arial", Font.BOLD, 22));
 		labelCliente.setAlignment(Label.CENTER);
-		labelCliente.setBounds(10, 289, 215, 42);
+		labelCliente.setBounds(10, 351, 215, 42);
 		panel.add(labelCliente);
 		
 		Label labelDiaria = new Label("Di\u00E1rias");
 		labelDiaria.setName("labelDiaria");
 		labelDiaria.setFont(new Font("Arial", Font.BOLD, 22));
 		labelDiaria.setAlignment(Label.CENTER);
-		labelDiaria.setBounds(12, 366, 215, 42);
+		labelDiaria.setBounds(12, 428, 215, 42);
 		panel.add(labelDiaria);
 		
 		textBusca = new JTextField();
 		textBusca.setFont(new Font("Arial", Font.BOLD, 16));
 		textBusca.setHorizontalAlignment(SwingConstants.LEFT);
-		textBusca.setBounds(233, 128, 607, 42);
+		textBusca.setBounds(233, 87, 607, 42);
 		panel.add(textBusca);
 		textBusca.setColumns(10);
 		
@@ -303,21 +273,21 @@ public class Reserva {
 		textQuantidade.setFont(new Font("Arial", Font.BOLD, 16));
 		textQuantidade.setHorizontalAlignment(SwingConstants.CENTER);
 		textQuantidade.setColumns(10);
-		textQuantidade.setBounds(233, 366, 285, 42);
+		textQuantidade.setBounds(233, 428, 285, 42);
 		panel.add(textQuantidade);
 		
 		textQuarto = new JTextField();
 		textQuarto.setFont(new Font("Arial", Font.BOLD, 16));
 		textQuarto.setHorizontalAlignment(SwingConstants.CENTER);
 		textQuarto.setColumns(10);
-		textQuarto.setBounds(233, 221, 285, 42);
+		textQuarto.setBounds(233, 283, 285, 42);
 		panel.add(textQuarto);
 		
 		textCliente = new JTextField();
 		textCliente.setFont(new Font("Arial", Font.BOLD, 16));
 		textCliente.setHorizontalAlignment(SwingConstants.CENTER);
 		textCliente.setColumns(10);
-		textCliente.setBounds(233, 289, 285, 42);
+		textCliente.setBounds(233, 351, 285, 42);
 		panel.add(textCliente);
 		
 		Label labelTotal = new Label("Total");
@@ -327,15 +297,176 @@ public class Reserva {
 		labelTotal.setBounds(10, 500, 215, 42);
 		panel.add(labelTotal);
 		
-		JButton btnDelete = new JButton("Excluir");
-		btnDelete.addActionListener(new ActionListener() {
+		Label labelReserva = new Label("Reserva");
+		labelReserva.setAlignment(Label.CENTER);
+		labelReserva.setName("labelQuarto");
+		labelReserva.setFont(new Font("Arial", Font.BOLD, 22));
+		labelReserva.setBounds(10, 214, 215, 42);
+		panel.add(labelReserva);
+		
+		textReserva = new JTextField();
+		textReserva.setEditable(false);
+		textReserva.setHorizontalAlignment(SwingConstants.CENTER);
+		textReserva.setFont(new Font("Arial", Font.BOLD, 16));
+		textReserva.setColumns(10);
+		textReserva.setBounds(233, 214, 285, 42);
+		panel.add(textReserva);
+		
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Total = 70.0;
+				
+				if(checkboxManha.isSelected()) {
+					refeicaoManha = true;
+					custoRefeicaoManha =  (Total/100) * 10 ;
+				} else {
+					refeicaoManha = false;
+					custoRefeicaoManha = 0;
+				}
+			
+				if(checkboxTarde.isSelected()) {
+					refeicaoTarde = true;
+					custoRefeicaoTarde =  (Total/100) * 15 ;
+				} else {
+					refeicaoTarde = false;
+					custoRefeicaoTarde = 0;
+				}
+			
+				if(checkboxNoite.isSelected()) {
+					refeicaoNoite = true;
+					custoRefeicaoNoite =  (Total/100) * 25 ;
+				
+				} else {
+					refeicaoNoite = false;
+					custoRefeicaoNoite = 0;
+				}
+			
+				if(checkboxAcessoPiscina.isSelected()) {
+					acessoPiscina = true;
+					custoAcessoPiscina =  (Total/100) * 50 ;
+				} else {
+					acessoPiscina = false;
+					custoAcessoPiscina = 0;
+				}
+			
+				if(checkboxServicoQuarto.isSelected()) {
+					servicoQuarto = true;
+					custoServicoQuarto =  Total + (Total/100) * 50 ;
+				
+				} else {
+					servicoQuarto = false;
+					custoServicoQuarto = 0;
+				}	
+			
+				Total = Total + (custoRefeicaoManha + custoRefeicaoTarde + custoRefeicaoNoite + custoServicoQuarto + custoAcessoPiscina);
+				
+				if (textReserva.getText().equalsIgnoreCase(null) || textReserva.getText().equals("") || textReserva.getText().equals("0") || Integer.parseInt(textReserva.getText()) <= 0) {
+					Quarto_id =  Integer.parseInt(textQuarto.getText());
+					Cliente_id =  Integer.parseInt(textCliente.getText());
+					Quantidade =  Integer.parseInt(textQuantidade.getText());
+					
+					Total = Total * Quantidade;
+					
+					Math.floor(Total);
+					
+					ReservaControl reservaController = new ReservaControl();
+					reservaController.cadastrarReserva(
+							Quarto_id,
+							Cliente_id,
+							Quantidade,
+							Total,
+							refeicaoManha,
+							refeicaoTarde,
+							refeicaoNoite,
+							servicoQuarto,
+							acessoPiscina
+						);
+
+					JOptionPane.showMessageDialog(null, "Reserva Registrada "
+							+ "\n INFORMAÇÕES - RESERVA REALIZADA"
+							+ "\n Quarto :"
+							+ "\n Cliente :"
+							+ "\n Quantidade de Diárias :"
+							+ "\n----------- CUSTO POR SERVIÇOS -----------"
+							+ "\n Custo de refeição Manhã :" + custoRefeicaoManha
+							+ "\n Custo de refeição Tarde :" + custoRefeicaoTarde
+							+ "\n Custo de refeição Noite :" + custoRefeicaoNoite
+							+ "\n Custo de serviço de Quarto :" + custoServicoQuarto
+							+ "\n Custo de acesso à Piscina :" + custoAcessoPiscina
+							+ "\n CUSTO TOTAL -------- :" + Total);
+				} else {
+					idAlterar = Integer.parseInt(textReserva.getText());
+					
+					ReservaControl reservaController = new ReservaControl();
+					
+					reservaController.editarReserva(
+							Integer.parseInt(textQuarto.getText())
+							,Integer.parseInt(textQuantidade.getText())
+							,Total
+							,refeicaoManha
+							,refeicaoTarde
+							,refeicaoNoite
+							,servicoQuarto
+							,acessoPiscina
+							,idAlterar
+					);
+					
+					textBusca.setText(String.valueOf(idAlterar));
+					btnConsultar.doClick();
+				}
 			}
 		});
-		btnDelete.setName("btnLimpar");
-		btnDelete.setFont(new Font("Arial", Font.BOLD, 18));
-		btnDelete.setBounds(563, 503, 138, 42);
-		panel.add(btnDelete);
+		btnSalvar.setName("btnSalvar");
+		btnSalvar.setFont(new Font("Arial", Font.BOLD, 18));
+		btnSalvar.setBounds(864, 503, 138, 42);
+		panel.add(btnSalvar);
 		
+		JMenuBar menuBar = new JMenuBar();
+		getFrame().setJMenuBar(menuBar);
+		
+		JMenuItem mntmNewMenuItemCadQuarto = new JMenuItem("Cadastrar Quarto");
+		mntmNewMenuItemCadQuarto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastroQuarto cadQuarto = new CadastroQuarto(); 
+				cadQuarto.setVisible(true);
+				getFrame().dispose();
+			}
+			
+		});
+		
+		
+		JMenuItem mntmNewMenuItemHome = new JMenuItem("Home");
+		mntmNewMenuItemHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Home home = new Home();
+				home.setVisible(true);
+				getFrame().dispose();
+			}
+			
+		});
+		menuBar.add(mntmNewMenuItemHome);
+		
+		
+		JMenuItem mntmNewMenuItemCadCliente = new JMenuItem("Cadastrar Cliente");
+		mntmNewMenuItemCadCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastroCliente cadCliente = new CadastroCliente();
+				cadCliente.setVisible(true);
+				getFrame().dispose();
+			}
+			
+		});
+		menuBar.add(mntmNewMenuItemCadCliente);
+		menuBar.add(mntmNewMenuItemCadQuarto);
+		
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 }

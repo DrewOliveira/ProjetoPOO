@@ -7,7 +7,7 @@ Create Table Reserva (
     quarto_id int Not Null,
     cliente_id int Not Null,
     diaria int Not Null,
-	custo decimal (6,2) DEFAULT 0.00,
+	custo decimal (28,3) DEFAULT 0.000,
 	refeicaoManha bit DEFAULT 0,
 	refeicaoTarde bit DEFAULT 0,
 	refeicaoNoite bit DEFAULT 0,

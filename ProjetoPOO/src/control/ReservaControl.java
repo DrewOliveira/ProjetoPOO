@@ -1,7 +1,10 @@
 package control;
 
+import java.awt.JobAttributes;
+
+import javax.swing.JOptionPane;
+
 import DAL.ReservaDAO;
-import model.Cliente;
 import model.Reserva;
 import util.Util;
 
@@ -17,8 +20,49 @@ public class ReservaControl {
 		}
 		return false;
 	}
-	public Cliente consultarCliente() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public Reserva consultarReserva(int id) {
+		try {
+			ReservaDAO daoReserva = new ReservaDAO();
+			Reserva reserva = daoReserva.BuscarReserva(id);
+			
+			if (reserva == null) {
+				return null;
+			} else {
+				return reserva;
+			}
+			
+		}catch(Exception e){
+			throw e;
+		}
 	}
+
+	public void excluirReserva(int id) {
+		try {
+			ReservaDAO daoReserva = new ReservaDAO();
+			
+			daoReserva.ExcluirReserva(id);
+		}catch(Exception e){
+			throw e;
+		}
+	}
+	
+	public void editarReserva(int QuartoId, int Diaria, Double Custo, boolean refeicaoManha, boolean refeicaoTarde, boolean refeicaoNoite, boolean servicoQuarto, boolean acessoPiscina,int reservaId ) {
+		try {
+			ReservaDAO daoReserva = new ReservaDAO();
+			
+			Custo = Custo * Diaria;
+			
+			Math.floor(Custo);
+
+			JOptionPane.showMessageDialog(null, Custo);
+
+			Reserva reserva = new Reserva(QuartoId, Diaria, Custo, refeicaoManha, refeicaoTarde, refeicaoNoite, servicoQuarto, acessoPiscina, reservaId);
+			
+			daoReserva.EditarReserva(reserva);
+		}catch(Exception e){
+			throw e;
+		}
+	}
+	
 }

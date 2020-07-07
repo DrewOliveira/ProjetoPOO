@@ -29,7 +29,7 @@ public class ConsultaClientes extends JFrame implements ActionListener {
 	MenuBar menuBar;
 	Menu menuHome;
 	Menu menuFuncoes;
-	MenuItem cadCli,cadQua,ConsuCli,ConsuQua;
+	MenuItem cadCli,cadQua,ConsuCli,ConsuQua, ReservaTela;
 	static Cliente cliente;
 	public ConsultaClientes() {
 		setTitle("Consulta Clientes");
@@ -49,10 +49,14 @@ public class ConsultaClientes extends JFrame implements ActionListener {
 		ConsuCli.addActionListener(this);
 		ConsuQua = new MenuItem("Consultar Quarto");
 		ConsuQua.addActionListener(this);
+		ReservaTela = new MenuItem("Tela de reservas");
+		ReservaTela.addActionListener(this);
+		
 		menuFuncoes.add(cadCli);
 		menuFuncoes.add(cadQua);
 		menuFuncoes.add(ConsuCli);
 		menuFuncoes.add(ConsuQua);
+		menuFuncoes.add(ReservaTela);
 		menuBar.add(menuHome);
 		menuBar.add(menuFuncoes);
 		setMenuBar(menuBar);
@@ -143,7 +147,15 @@ public class ConsultaClientes extends JFrame implements ActionListener {
 			 ConsultaQuartos consultaQuartos = new ConsultaQuartos();
 			consultaQuartos.setVisible(true);
 			this.dispose();
-		}if(e.getSource().equals(btnBusca)) {
+		}
+		
+		if(e.getSource().equals(ReservaTela)) {
+			Reserva reservaTela = new Reserva();
+			reservaTela.getFrame().setVisible(true);
+			this.dispose();
+		 }
+		
+		if(e.getSource().equals(btnBusca)) {
 			int id = Integer.parseInt(txtIdBusca.getText());
 			ClienteControl cliControl = Repositorio.getClienteControl();
 			cliente = cliControl.consultarCliente();
@@ -169,7 +181,7 @@ public class ConsultaClientes extends JFrame implements ActionListener {
 				
 				if(true) {
 					JOptionPane.showMessageDialog(null, "Edição salva!");
-				}else {
+				} else {
 					JOptionPane.showMessageDialog(null, "Ocorreu um erro durante a edição!");
 				}
 			}

@@ -87,4 +87,34 @@ public class Reserva {
 		this.acessoPiscina = acessoPiscina;
 	}
 	
+	public Reserva(int id, int quarto_id, int cliente_id, int diaria, double custo, boolean refeicaoManha,
+			boolean refeicaoTarde, boolean refeicaoNoite, boolean servicoQuarto, boolean acessoPiscina) {
+		super();
+		this.id =  id;
+		this.quarto_id = quarto_id;
+		this.cliente_id = cliente_id;
+		this.diaria = diaria;
+		this.custo = custo;
+		this.refeicaoManha = refeicaoManha;
+		this.refeicaoTarde = refeicaoTarde;
+		this.refeicaoNoite = refeicaoNoite;
+		this.servicoQuarto = servicoQuarto;
+		this.acessoPiscina = acessoPiscina;
+	}
+	
+	public Reserva(int quarto_id, int diaria, double custo, boolean refeicaoManha,
+			boolean refeicaoTarde, boolean refeicaoNoite, boolean servicoQuarto, boolean acessoPiscina, int id) {
+		super();
+		this.id =  id;
+		this.quarto_id = quarto_id;
+		this.diaria = diaria;
+		this.custo = custo;
+		this.refeicaoManha = refeicaoManha;
+		this.refeicaoTarde = refeicaoTarde;
+		this.refeicaoNoite = refeicaoNoite;
+		this.servicoQuarto = servicoQuarto;
+		this.acessoPiscina = acessoPiscina;
+		
+	}
+	
 }
